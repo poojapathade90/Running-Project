@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Login Page</title>
+</head>
+<body>
+
+    <div class="container">
+        <form id="loginForm">
+            <h2>Login</h2>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            
+            <button type="button" onclick="validateLogin()">Login</button>
+
+            <tr>
+                <td colspan="2">
+                    Not yet a Member? <a href="Registration.html">Registration</a>
+                </td>
+            </tr>
+        </form>
+        <p id="error-message"></p>
+    </div>
+
+    <script>
+        function validateLogin() {
+            // Retrieve values from input fields
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            // Basic validation, you may want to implement more robust checks
+            if (username === "" || password === "") {
+                document.getElementById("error-message").innerText = "Please enter both username and password.";
+                return;
+            }
+
+            // Check credentials from local storage
+            if (checkCredentials(username, password)) {
+                document.getElementById("error-message").innerText = "";
+                alert("Login successful!");
+
+                // Redirect to home_page.html
+                window.location.href = "home_page.html";
+            } else {
+                document.getElementById("error-message").innerText = "Login failed. Please check your credentials.";
+            }
+        }
+
+        function checkCredentials(username, password) {
+            // Replace this with your actual server-side authentication logic
+            // For now, assume user credentials are stored in local storage
+            var storedUsername = localStorage.getItem("username");
+            var storedPassword = localStorage.getItem("password");
+
+            return username === storedUsername && password === storedPassword;
+        }
+    </script>
+    
+</body>
+</html>
