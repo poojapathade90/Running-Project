@@ -1,0 +1,67 @@
+<!-- Registration.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Registration Page</title>
+</head>
+<body>
+
+    <div class="container">
+        <form id="registrationForm">
+            <h2>Registration</h2>
+            <label for="regUsername">Username:</label>
+            <input type="text" id="regUsername" name="regUsername" required>
+            
+            <label for="regPassword">Password:</label>
+            <input type="password" id="regPassword" name="regPassword" required>
+
+            <label for="regEmail">Email:</label>
+            <input type="email" id="Email" placeholder="Enter email here">
+
+            
+            <label for="regPhone">Phone:<select id="phoneCode">
+                <option selected>+91</option>
+                <option>+254</option>
+                <option>+255</option>
+                <option>+256</option>
+                <option>+257</option>
+                <option>+</label>
+            <input type="phone" id="mob_digits" placeholder="76********" maxlength="10">
+
+        
+            
+            <!-- <button type="button" onclick="registerUser()"  href="index.html">Register</button> -->
+            <button type="button" onclick="registerUser()"><a href="index.html">Submit</a></button>
+
+            <tr>
+                <td colspan="2">
+                    Already a user? <a href="index.html">Login Here</a>
+                </td>
+            </tr>
+        </form>
+    </div>
+
+    <script>
+        function registerUser() {
+            var regUsername = document.getElementById('regUsername').value;
+            var regPassword = document.getElementById('regPassword').value;
+
+
+            // Check if local storage is supported
+            if (typeof(Storage) !== "undefined") {
+                // Save the registration data in local storage
+                localStorage.setItem('username', regUsername);
+                localStorage.setItem('password', regPassword);
+
+                alert('Registration successful!');
+            } else {
+                alert('Local storage is not supported in your browser.');
+            }
+        }
+    </script>
+</body>
+</html>
