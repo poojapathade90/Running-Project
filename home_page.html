@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webpage1</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body style="margin: 5px;">
+        
+    
+
+    <center>
+        <div>
+            <button><a href="update_display.html">Employee</a></button>
+            <button><a href="profile_display.html">Employment</a></button>
+            <button><a href="create_profile.html">Create Profile</a></button>
+            <button><a href="project_update.html">Update Opportunity</a></button>
+            <button onclick="logout()">Logout</button>
+        </div>
+    </center>
+
+    <!-- Your webpage content goes here -->
+
+    <script>
+        function logout() {
+            // Your logout logic goes here
+            alert('You have been logged out.');
+            
+            // Redirect to the login page
+            window.location.href = 'index.html';
+        }
+    </script>
+
+</body>
+</html>
