@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Profile</title>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="create_profile.css"> 
+</head> 
+<body>
+    <center>
+        
+
+        <form action="javascript:void(0)" method="post">
+
+            <table>
+                <h3>Profile Page</h3>
+                <tr>
+                    <td>Name:</td>
+                    <td>
+                        <input type="text" id="Name" placeholder="Enter name here">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>PS No.:</td>
+                    <td>
+                        <input type="text" id="User_psno" placeholder="Enter PS No. Here">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Email:</td>
+                    <td>
+                        <input type="email" id="Email" placeholder="Enter email here">
+                    </td>
+                </tr>
+
+                <!-- Add the Email field above ^ -->
+
+                <tr>
+                    <td>CurrentRole:</td>
+                    <td>
+                        <input type="text" id="CurrentRole" placeholder="Enter Current Role here">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>NoOfYearExp:</td>
+                    <td>
+                        <input type="text" id="NoOfYearExp" placeholder="Enter No. of Year Exp here">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Current Location:</td>
+                    <td>
+                        <input type="text" id="CurrentLocation" placeholder="Enter Current Location here">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Skill Set:</td>
+                    <td>
+                        <input type="text" id="SkillSet" placeholder="Enter Skill Set here">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Upload resume (PDF):</td>
+                    <td>
+                        <input type="file" accept=".pdf" id="UploadResume" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Phone:</td>
+                    <td>
+                        <select id="phoneCode">
+                            <option selected>+91</option>
+                            <option>+254</option>
+                            <option>+255</option>
+                            <option>+256</option>
+                            <option>+257</option>
+                            <option>+258</option>
+                        </select>
+                        
+                        <input type="phone" id="mob_digits" placeholder="98********" maxlength="10">
+                    </td>
+                </tr>
+                <tr>                  
+                    <td colspan="2">
+                        <button type="button" onclick="saveData()" class="btn btn-primary" id="save_btn" ><a href="home_page.html">Submit</a></button> 
+                        <!-- <button><a href="home_page.html">Submit</a></button> -->
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </center>   
+
+    <script>
+        function saveData() {
+            var name = document.getElementById('Name').value;
+            var ps_no = document.getElementById('User_psno').value;
+            var email = document.getElementById('Email').value; // Add this line
+            var CurrentRole = document.getElementById('CurrentRole').value;
+            var NoOfYearExp = document.getElementById('NoOfYearExp').value;
+            var location = document.getElementById('CurrentLocation').value;
+            var skill = document.getElementById('SkillSet').value;
+            var resumeInput = document.getElementById('UploadResume');
+            
+            // Check if local storage is supported
+            if (name && ps_no && email && CurrentRole && NoOfYearExp && location && skill && resumeInput.files.length > 0) {
+                if (typeof Storage !== "undefined") {
+                    var resumeFile = resumeInput.files[0];
+                    var resumeFileName = resumeFile.name;
+                    var resumeFileType = resumeFile.type;
+
+                    if (resumeFileType === 'application/pdf') {
+                        var users = JSON.parse(localStorage.getItem('users')) || [];
+                        users.push({
+                            Name: name,
+                            User_psno: ps_no,
+                            Email: email, // Add this line
+                            CurrentRole: CurrentRole,
+                            NoOfYearExp: NoOfYearExp,
+                            Current_Location: location,
+                            Skill_set: skill,
+                            Upload_resume: resumeFileName,
+                            Phone: getPhoneNumber()
+                        });
+                        localStorage.setItem('users', JSON.stringify(users));
+                        alert('Profile created successfully!');
+                    } else {
+                        alert('Please upload a PDF file for the resume.');
+                    }
+                } else {
+                    alert('Local storage is not supported in your browser.');
+                }
+            } else {
+                alert('Please fill in all required fields.');
+            }
+        }
+
+        function getPhoneNumber() {
+            var phoneCode = document.getElementById('phoneCode').value;
+            var phoneNumber = phoneCode + document.getElementById('mob_digits').value;
+            return phoneNumber;
+        }
+    </script>
+</body>
+</html>
