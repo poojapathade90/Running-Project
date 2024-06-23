@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Display Records</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- Additional styles if needed -->
+</head>
+<body>
+    <center>
+        <button><a href=">Employee_display.html">Employee</a></button>
+        <button><a href="Employment_display.html">Employment</a></button>
+        <button><a href="home_page.html">Home_Page</a></button>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>PS No.</th>
+                    <th>Email</th>
+                    <th>Current Role</th>
+                    <th>No. of Years Exp</th>
+                    <th>Current Location</th>
+                    <th>Skill Set</th>
+                    <th>Resume</th>
+                    <th>Phone</th>
+                </tr>
+            </thead>
+            <tbody id="recordsTableBody">
+                <!-- Table body will be filled dynamically using JavaScript -->
+            </tbody>
+        </table>
+    </center>
+
+    <script>
+        // Retrieve data from local storage and display in the table
+        document.addEventListener('DOMContentLoaded', function () {
+            displayRecords();
+        });
+
+        function displayRecords() {
+            var users = JSON.parse(localStorage.getItem('users')) || [];
+            var tableBody = document.getElementById('recordsTableBody');
+
+            // Clear existing rows in the table
+            tableBody.innerHTML = '';
+
+            users.forEach(function (user) {
+                var row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${user.Name}</td>
+                    <td>${user.User_psno}</td>
+                    <td>${user.Email}</td>
+                    <td>${user.CurrentRole}</td>
+                    <td>${user.NoOfYearExp}</td>
+                    <td>${user.Current_Location}</td>
+                    <td>${user.Skill_set}</td>
+                    <td><a href="#" onclick="downloadResume('${user.Upload_resume}')">Download</a></td>
+                    <td>${user.Phone}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function downloadResume(resumeFileName) {
+            // You can implement the logic to download the resume here
+            alert('Download the resume: ' + resumeFileName);
+        }
+    </script>
+</body>
+</html>
