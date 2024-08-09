@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Display Records</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- Additional styles if needed -->
+</head>
+<body>
+    <center>
+        <button><a href="update_display.html">Employee</a></button>
+        <button><a href="profile_display.html">Employment</a></button>
+        <button><a href="home_page.html">Home_Page</a></button>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Opp ID</th>
+                    <th>Job Role</th>
+                    <th>No. of Years Exp</th>
+                    <th>Location</th>
+                    <th>Job Summary</th>
+                    <th>Apply</th>
+                </tr>
+            </thead>
+            <tbody id="recordsTableBody">
+                <!-- Table body will be filled dynamically using JavaScript -->
+            </tbody>
+        </table>
+    </center>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            displayRecords();
+        });
+
+        function displayRecords() {
+            var opportunities = JSON.parse(localStorage.getItem('opportunities')) || [];
+            var tableBody = document.getElementById('recordsTableBody');
+
+            tableBody.innerHTML = '';
+
+            opportunities.forEach(function (opportunity) {
+                var row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${opportunity.OppID}</td>
+                    <td>${opportunity.JobRole}</td>
+                    <td>${opportunity.NoOfYearExp}</td>
+                    <td>${opportunity.Location}</td>
+                    <td>${opportunity.JobSummary}</td>
+                    <td><button onclick="applyForJob('${opportunity.OppID}', '${opportunity.JobRole}')" class="btn btn-success">Apply</button></td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function applyForJob(oppID, jobRole) {
+            // Get applied employee details (you can modify this logic)
+            var employeeID = prompt("Enter your Employee ID:");
+            var employeeName = prompt("Enter your Employee Name:");
+
+            // Store the application details in local storage
+            var applications = JSON.parse(localStorage.getItem('applications')) || [];
+            applications.push({
+                OppID: oppID,
+                EmployeeID: employeeID,
+                EmployeeName: employeeName,
+                JobRole: jobRole  // Add more data if needed
+            });
+            localStorage.setItem('applications', JSON.stringify(applications));
+
+            alert(`You have applied for the job with Opp ID: ${oppID}`);
+        }
+    </script>
+</body>
+</html>
